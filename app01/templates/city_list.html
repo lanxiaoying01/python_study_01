@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div style="margin-bottom: 10px">
+        <a class="btn btn-success" href="/upload/modal/form" ><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>新建城市</a>
+    </div>
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">城市列表</div>
+
+      <!-- Table -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>LOGO</th>
+            <th>城市</th>
+            <th>人口</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for foo in queryset %}
+          <tr>
+            <td>{{ foo.id }}</td>
+            <td>
+                <img src="/media/{{ foo.img }}" style="height: 80px;" />
+             </td>
+            <td>{{ foo.name }}</td>
+            <td> {{ foo.count }}</td>
+          </tr>
+        {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+{% endblock %}
