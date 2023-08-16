@@ -56,7 +56,7 @@ def login(request):
         request.session.set_expiry(60*60*24*7)
         return redirect('/admin/list')
 
-    return render(request, 'login.html', {'form', form})
+    return render(request, 'login.html', {'form': form})
 
 def logout(request):
     """ 注销 """
