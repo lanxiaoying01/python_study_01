@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.views.static import serve
 from django.conf import settings
-from app01.views import dept, user, pretty, admin, account, task, order, chart, upload, city
+from app01.views import dept, user, pretty, admin, account, task, order, chart, upload, city, fenzhang
 
 urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}, name='media'),
@@ -76,5 +76,8 @@ urlpatterns = [
 
     # 城市管理
     path('city/list', city.city_list),
+
+    # 分账管理
+    path('fenzhang/compute', fenzhang.compute),
 
 ]
