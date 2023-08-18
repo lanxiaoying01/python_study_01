@@ -108,3 +108,11 @@ class City(models.Model):
     count = models.IntegerField(verbose_name="人口")
     # FileField本质上数据库也是CharField，自动保存数据(使用upload_to自动上传到media目录家下的city文件夹里)
     img = models.FileField(verbose_name="LOGO", max_length=128, upload_to='city')
+
+class FenZhang(models.Model):
+    """ 分账 """
+    name = models.CharField(verbose_name="用户名字", max_length=32)
+    count = models.IntegerField(verbose_name="数量")
+    huafei = models.IntegerField(verbose_name="花费")
+    shoukuan = models.IntegerField(verbose_name="收款")
+    owner = models.CharField(verbose_name="拥有者", max_length=128, null=True, blank=True,)

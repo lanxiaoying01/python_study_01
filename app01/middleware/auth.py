@@ -7,9 +7,17 @@ class AuthMiddleware(MiddlewareMixin):
     """ 中间件1 """
 
     def process_request(self, request):
+
+        ignore_list = [
+            "/login",
+            "/image/code",
+            "/fenzhang/compute",
+            "/fenzhang/create",
+        ]
+
         # 0.排除那些不需要登录就能访问的页面
         # request.path_info 获取当前用户请求的URL  /login/
-        if request.path_info in ["/login","/image/code","/fenzhang/compute"]:
+        if request.path_info in ignore_list:
             return
 
         # 1.读取当前访问的用户的session信息，如果能读到，说明已登录

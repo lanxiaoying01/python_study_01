@@ -79,5 +79,7 @@ urlpatterns = [
 
     # 分账管理
     path('fenzhang/compute', fenzhang.compute),
+    path('fenzhang/create', fenzhang.create),
+    path('fenzhang/<int:nid>/modify', fenzhang.modify),
 
 ]

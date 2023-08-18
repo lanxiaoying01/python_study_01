@@ -4,6 +4,7 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from decimal import Decimal
+from app01.models import FenZhang
 
 
 # 分账计算
@@ -18,7 +19,11 @@ def compute(request):
     #      {'name':'Suki','huafei':12,'shoukuan':0,'count':1}]
     sum = 0
     for item in lst:
-        sum += item.get("huafei")
+        if type(item.get("huafei")) == str:
+            item["huafei"]=int(item.get("huafei"))
+            sum += item.get("huafei")
+        else:
+            sum += item.get("huafei")
 
     msg_list.append('总费用：{0}'.format(sum))
 
@@ -61,3 +66,22 @@ def compute(request):
 
     print(msg_list)
     return JsonResponse({'msg_list':msg_list})
+
+
+@csrf_exempt
+def create(request):
+
+    row_obj = json.loads(request.body)
+    FenZhang.objects.create(name=row_obj["name"], count=row_obj["count"], huafei=row_obj["huafei"], shoukuan=row_obj["shoukuan"])
+    return JsonResponse({"status": True})
+
+@csrf_exempt
+def modify(request,nid):
+    row_obj = FenZhang.objects.filter(id=nid).first()
+    if not row_obj:
+        return JsonResponse({"status": False, "msg": "数据不存在"})
+
+    # POST提交，数据校验
+    form = FenZhang(data=request.POST, instance=row_obj)
+    form.save()
+    return JsonResponse({"status": True})
